@@ -157,3 +157,15 @@ def test_token_lifetimes_must_be_positive() -> None:
             secret_key=SECRET,
             refresh_token_ttl=timedelta(seconds=0),
         )
+
+
+def test_issue_access_creates_access_token(
+    service: JwtTokenService,
+    user: IdentityUser,
+) -> None:
+    token = service.issue_access(user)
+
+    claims = service.decode(token, expected_type=TokenType.ACCESS)
+
+    assert claims.subject == 42
+    assert claims.token_type is TokenType.ACCESS

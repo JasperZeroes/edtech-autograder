@@ -33,6 +33,9 @@ class TokenClaims:
 class TokenService(Protocol):
     """Application-facing contract for issuing and validating auth tokens."""
 
+    def issue_access(self, user: IdentityUser) -> str:
+        ...
+
     def issue_pair(self, user: IdentityUser) -> TokenPair:
         ...
 

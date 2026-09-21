@@ -41,13 +41,16 @@ class JwtTokenService:
         self._access_token_ttl = access_token_ttl
         self._refresh_token_ttl = refresh_token_ttl
 
+    def issue_access(self, user: IdentityUser) -> str:
+        return self._encode(
+            user=user,
+            token_type=TokenType.ACCESS,
+            lifetime=self._access_token_ttl,
+        )
+
     def issue_pair(self, user: IdentityUser) -> TokenPair:
         return TokenPair(
-            access_token=self._encode(
-                user=user,
-                token_type=TokenType.ACCESS,
-                lifetime=self._access_token_ttl,
-            ),
+            access_token=self.issue_access(user),
             refresh_token=self._encode(
                 user=user,
                 token_type=TokenType.REFRESH,
@@ -114,4 +117,9 @@ class JwtTokenService:
             "iat": now,
             "exp": now + lifetime,
         }
-        return jwt.encode(payload, self._secret_key, algorithm=self._algorithm)
+
+        return jwt.encode(
+            payload,
+            self._secret_key,
+            algorithm=self._algorithm,
+        )
