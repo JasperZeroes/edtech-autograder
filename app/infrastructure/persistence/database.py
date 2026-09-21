@@ -1,0 +1,18 @@
+from sqlalchemy import Engine, create_engine
+from sqlalchemy.orm import Session, sessionmaker
+
+
+def create_database_engine(database_url: str) -> Engine:
+    """Create the application's SQLAlchemy engine."""
+
+    return create_engine(database_url, pool_pre_ping=True)
+
+
+def create_session_factory(engine: Engine) -> sessionmaker[Session]:
+    """Create sessions without hiding transaction ownership in repositories."""
+
+    return sessionmaker(
+        bind=engine,
+        autoflush=False,
+        expire_on_commit=False,
+    )
