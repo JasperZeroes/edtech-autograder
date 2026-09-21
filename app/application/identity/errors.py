@@ -16,3 +16,11 @@ class InvalidCredentialsError(IdentityApplicationError):
 
 class InactiveUserError(IdentityApplicationError):
     """Raised when valid credentials belong to a deactivated user."""
+
+
+class InvalidTokenError(IdentityApplicationError):
+    """Raised when an authentication token cannot be trusted or decoded."""
+
+
+class ExpiredTokenError(InvalidTokenError):
+    """Raised when an otherwise valid token has expired."""

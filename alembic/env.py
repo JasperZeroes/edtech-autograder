@@ -5,9 +5,9 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import create_engine, pool
 
-from app.config import get_settings
+from app.config import get_database_settings
 from app.infrastructure.persistence.base import Base
-from app.infrastructure.persistence.models import UserModel  # noqa: F401
+from app.infrastructure.persistence.models import UserModel
 
 
 config = context.config
@@ -19,7 +19,7 @@ target_metadata = Base.metadata
 
 
 def get_database_url() -> str:
-    return get_settings().database_url
+    return get_database_settings().database_url
 
 
 def run_migrations_offline() -> None:
