@@ -22,9 +22,11 @@ from app.domain.identity import UserRole
 from app.infrastructure.persistence import (
     SqlAlchemyAssessmentUnitOfWork,
     SqlAlchemyIdentityUnitOfWork,
+    SqlAlchemySubmissionUnitOfWork,
     create_database_engine,
     create_session_factory,
 )
+from app.infrastructure.queue import InMemoryGradingQueue
 from app.infrastructure.security import Argon2PasswordHasher, JwtTokenService
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
@@ -57,6 +59,17 @@ def get_assessment_uow(
     session: Annotated[Session, Depends(get_session)],
 ) -> SqlAlchemyAssessmentUnitOfWork:
     return SqlAlchemyAssessmentUnitOfWork(session)
+
+
+def get_submission_uow(
+    session: Annotated[Session, Depends(get_session)],
+) -> SqlAlchemySubmissionUnitOfWork:
+    return SqlAlchemySubmissionUnitOfWork(session)
+
+
+@lru_cache
+def get_grading_queue() -> InMemoryGradingQueue:
+    return InMemoryGradingQueue()
 
 
 @lru_cache

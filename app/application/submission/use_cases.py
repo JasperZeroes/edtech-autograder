@@ -8,8 +8,9 @@ from .errors import (
     AssignmentUnavailableError,
     SubmissionAccessError,
     SubmissionNotFoundError,
+    SubmissionQueueError,
 )
-from .ports import SubmissionUnitOfWork
+from .ports import GradingQueue, SubmissionUnitOfWork
 
 
 class CreateSubmission:
@@ -47,6 +48,31 @@ class CreateSubmission:
             raise
 
         return SubmissionView.from_domain(saved)
+
+
+class SubmitForGrading:
+    """Persist a new attempt before handing it to the grading queue."""
+
+    def __init__(
+        self,
+        *,
+        unit_of_work: SubmissionUnitOfWork,
+        grading_queue: GradingQueue,
+    ) -> None:
+        self._unit_of_work = unit_of_work
+        self._grading_queue = grading_queue
+
+    def execute(self, command: CreateSubmissionCommand) -> SubmissionView:
+        result = CreateSubmission(
+            unit_of_work=self._unit_of_work
+        ).execute(command)
+
+        try:
+            self._grading_queue.enqueue(result.id)
+        except Exception as exc:
+            raise SubmissionQueueError(result.id) from exc
+
+        return result
 
 
 class ListStudentSubmissions:

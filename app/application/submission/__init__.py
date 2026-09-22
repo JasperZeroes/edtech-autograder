@@ -5,12 +5,14 @@ from .errors import (
     SubmissionAccessError,
     SubmissionApplicationError,
     SubmissionNotFoundError,
+    SubmissionQueueError,
 )
-from .ports import SubmissionUnitOfWork
+from .ports import GradingQueue, SubmissionUnitOfWork
 from .use_cases import (
     CreateSubmission,
     GetStudentSubmission,
     ListStudentSubmissions,
+    SubmitForGrading,
 )
 
 __all__ = [
@@ -18,10 +20,13 @@ __all__ = [
     "CreateSubmission",
     "CreateSubmissionCommand",
     "GetStudentSubmission",
+    "GradingQueue",
     "ListStudentSubmissions",
     "SubmissionAccessError",
     "SubmissionApplicationError",
     "SubmissionNotFoundError",
+    "SubmissionQueueError",
     "SubmissionUnitOfWork",
     "SubmissionView",
+    "SubmitForGrading",
 ]

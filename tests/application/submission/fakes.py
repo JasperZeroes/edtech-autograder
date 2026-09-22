@@ -74,14 +74,41 @@ class FakeSubmissionUnitOfWork:
         *,
         assignments: list[Assignment] | None = None,
         submissions: list[Submission] | None = None,
+        events: list[str] | None = None,
     ) -> None:
         self.assignments = FakeAssignmentRepository(assignments)
         self.submissions = FakeSubmissionRepository(submissions)
         self.committed = False
         self.rolled_back = False
+        self.events = events
 
     def commit(self) -> None:
         self.committed = True
+        if self.events is not None:
+            self.events.append("commit")
 
     def rollback(self) -> None:
         self.rolled_back = True
+        if self.events is not None:
+            self.events.append("rollback")
+
+
+class FakeGradingQueue:
+    def __init__(
+        self,
+        *,
+        events: list[str] | None = None,
+        fail_on_enqueue: bool = False,
+    ) -> None:
+        self.enqueued: list[int] = []
+        self.events = events
+        self.fail_on_enqueue = fail_on_enqueue
+
+    def enqueue(self, submission_id: int) -> None:
+        if self.events is not None:
+            self.events.append(f"enqueue:{submission_id}")
+
+        if self.fail_on_enqueue:
+            raise RuntimeError("queue unavailable")
+
+        self.enqueued.append(submission_id)

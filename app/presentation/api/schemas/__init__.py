@@ -11,6 +11,10 @@ from .auth import (
     UserRegisterRequest,
     UserResponse,
 )
+from .submission import (
+    SubmissionDetailResponse,
+    SubmissionSummaryResponse,
+)
 
 __all__ = [
     "AccessTokenResponse",
@@ -18,6 +22,8 @@ __all__ = [
     "CreateAssignmentRequest",
     "InstructorAssignmentResponse",
     "PublishedAssignmentResponse",
+    "SubmissionDetailResponse",
+    "SubmissionSummaryResponse",
     "TokenRefreshRequest",
     "TokenResponse",
     "UserRegisterRequest",
