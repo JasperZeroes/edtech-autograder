@@ -20,6 +20,7 @@ from app.application.identity import (
 from app.config import get_auth_settings, get_database_settings
 from app.domain.identity import UserRole
 from app.infrastructure.persistence import (
+    SqlAlchemyAssessmentUnitOfWork,
     SqlAlchemyIdentityUnitOfWork,
     create_database_engine,
     create_session_factory,
@@ -52,6 +53,12 @@ def get_identity_uow(
     return SqlAlchemyIdentityUnitOfWork(session)
 
 
+def get_assessment_uow(
+    session: Annotated[Session, Depends(get_session)],
+) -> SqlAlchemyAssessmentUnitOfWork:
+    return SqlAlchemyAssessmentUnitOfWork(session)
+
+
 @lru_cache
 def get_password_hasher() -> Argon2PasswordHasher:
     return Argon2PasswordHasher()
@@ -72,7 +79,9 @@ def get_token_service() -> JwtTokenService:
     )
 
 
-def _credentials_exception(detail: str = "Could not validate credentials") -> HTTPException:
+def _credentials_exception(
+    detail: str = "Could not validate credentials",
+) -> HTTPException:
     return HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail=detail,
