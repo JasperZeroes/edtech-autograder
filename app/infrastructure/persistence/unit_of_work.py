@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.infrastructure.persistence.repositories import (
     SqlAlchemyAssignmentRepository,
+    SqlAlchemySubmissionRepository,
     SqlAlchemyUserRepository,
 )
 
@@ -28,6 +29,21 @@ class SqlAlchemyAssessmentUnitOfWork:
     def __init__(self, session: Session) -> None:
         self._session = session
         self.assignments = SqlAlchemyAssignmentRepository(session)
+
+    def commit(self) -> None:
+        self._session.commit()
+
+    def rollback(self) -> None:
+        self._session.rollback()
+
+
+class SqlAlchemySubmissionUnitOfWork:
+    """SQLAlchemy transaction boundary for submission use cases."""
+
+    def __init__(self, session: Session) -> None:
+        self._session = session
+        self.assignments = SqlAlchemyAssignmentRepository(session)
+        self.submissions = SqlAlchemySubmissionRepository(session)
 
     def commit(self) -> None:
         self._session.commit()

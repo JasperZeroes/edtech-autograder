@@ -7,10 +7,10 @@ from sqlalchemy import create_engine, pool
 
 from app.config import get_database_settings
 from app.infrastructure.persistence.base import Base
-from app.infrastructure.persistence.models import (  # noqa: F401
-    AssignmentModel,
+from app.infrastructure.persistence.models import (
     IOTestCaseModel,
     StaticAnalysisRulesModel,
+    SubmissionModel,
     UnitTestSpecificationModel,
     UserModel,
 )
