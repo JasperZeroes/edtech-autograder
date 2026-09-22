@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from app.infrastructure.persistence.repositories import SqlAlchemyUserRepository
+from app.infrastructure.persistence.repositories import (
+    SqlAlchemyAssignmentRepository,
+    SqlAlchemyUserRepository,
+)
 
 
 class SqlAlchemyIdentityUnitOfWork:
@@ -11,6 +14,20 @@ class SqlAlchemyIdentityUnitOfWork:
     def __init__(self, session: Session) -> None:
         self._session = session
         self.users = SqlAlchemyUserRepository(session)
+
+    def commit(self) -> None:
+        self._session.commit()
+
+    def rollback(self) -> None:
+        self._session.rollback()
+
+
+class SqlAlchemyAssessmentUnitOfWork:
+    """SQLAlchemy transaction boundary for assessment use cases."""
+
+    def __init__(self, session: Session) -> None:
+        self._session = session
+        self.assignments = SqlAlchemyAssignmentRepository(session)
 
     def commit(self) -> None:
         self._session.commit()
