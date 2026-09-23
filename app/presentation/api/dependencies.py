@@ -21,6 +21,7 @@ from app.config import get_auth_settings, get_database_settings
 from app.domain.identity import UserRole
 from app.infrastructure.persistence import (
     SqlAlchemyAssessmentUnitOfWork,
+    SqlAlchemyGradingUnitOfWork,
     SqlAlchemyIdentityUnitOfWork,
     SqlAlchemySubmissionUnitOfWork,
     create_database_engine,
@@ -65,6 +66,12 @@ def get_submission_uow(
     session: Annotated[Session, Depends(get_session)],
 ) -> SqlAlchemySubmissionUnitOfWork:
     return SqlAlchemySubmissionUnitOfWork(session)
+
+
+def get_grading_uow(
+    session: Annotated[Session, Depends(get_session)],
+) -> SqlAlchemyGradingUnitOfWork:
+    return SqlAlchemyGradingUnitOfWork(session)
 
 
 @lru_cache

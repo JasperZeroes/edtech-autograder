@@ -15,11 +15,11 @@ class GradingWorkflowError(RuntimeError):
 
 
 class GradingSubmissionNotFoundError(GradingWorkflowError):
-    """Raised when a worker receives an unknown submission id."""
+    """Raised when a worker or query receives an unknown submission id."""
 
 
 class GradingAssignmentNotFoundError(GradingWorkflowError):
-    """Raised when persisted submission data references no assignment."""
+    """Raised when a grading query references no assignment."""
 
 
 class GradingResultMissingError(GradingWorkflowError):
@@ -28,3 +28,7 @@ class GradingResultMissingError(GradingWorkflowError):
 
 class SubmissionAlreadyRunningError(GradingWorkflowError):
     """Raised when another worker is already grading a submission."""
+
+
+class ResultAccessError(GradingWorkflowError):
+    """Raised when a caller attempts to view a result they do not own."""

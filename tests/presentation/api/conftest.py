@@ -3,11 +3,13 @@ from __future__ import annotations
 import pytest
 from fastapi.testclient import TestClient
 
+from app.domain.grading import GradingResult, StoredGradingResult
 from app.infrastructure.security import JwtTokenService
 from app.main import app
 from app.presentation.api.dependencies import (
     get_assessment_uow,
     get_grading_queue,
+    get_grading_uow,
     get_identity_uow,
     get_password_hasher,
     get_submission_uow,
@@ -24,6 +26,53 @@ from tests.application.submission.fakes import (
 )
 
 TEST_SECRET = "api-test-secret-key-with-at-least-32-characters"
+
+
+class FakeGradingResultRepository:
+    def __init__(self) -> None:
+        self._results: dict[int, StoredGradingResult] = {}
+        self._next_id = 1
+
+    def get_by_submission_id(
+        self,
+        submission_id: int,
+    ) -> StoredGradingResult | None:
+        return self._results.get(submission_id)
+
+    def save(
+        self,
+        *,
+        submission_id: int,
+        result: GradingResult,
+    ) -> StoredGradingResult:
+        stored = StoredGradingResult(
+            id=self._next_id,
+            submission_id=submission_id,
+            result=result,
+        )
+        self._next_id += 1
+        self._results[submission_id] = stored
+        return stored
+
+
+class FakeGradingUnitOfWork:
+    def __init__(
+        self,
+        *,
+        assessment_uow: FakeAssessmentUnitOfWork,
+        submission_uow: FakeSubmissionUnitOfWork,
+    ) -> None:
+        self.assignments = assessment_uow.assignments
+        self.submissions = submission_uow.submissions
+        self.grading_results = FakeGradingResultRepository()
+        self.committed = False
+        self.rolled_back = False
+
+    def commit(self) -> None:
+        self.committed = True
+
+    def rollback(self) -> None:
+        self.rolled_back = True
 
 
 @pytest.fixture
@@ -46,6 +95,17 @@ def submission_uow(
 
 
 @pytest.fixture
+def grading_uow(
+    assessment_uow: FakeAssessmentUnitOfWork,
+    submission_uow: FakeSubmissionUnitOfWork,
+) -> FakeGradingUnitOfWork:
+    return FakeGradingUnitOfWork(
+        assessment_uow=assessment_uow,
+        submission_uow=submission_uow,
+    )
+
+
+@pytest.fixture
 def grading_queue() -> FakeGradingQueue:
     return FakeGradingQueue()
 
@@ -65,6 +125,7 @@ def client(
     unit_of_work: FakeIdentityUnitOfWork,
     assessment_uow: FakeAssessmentUnitOfWork,
     submission_uow: FakeSubmissionUnitOfWork,
+    grading_uow: FakeGradingUnitOfWork,
     grading_queue: FakeGradingQueue,
     password_hasher: FakePasswordHasher,
     token_service: JwtTokenService,
@@ -72,6 +133,7 @@ def client(
     app.dependency_overrides[get_identity_uow] = lambda: unit_of_work
     app.dependency_overrides[get_assessment_uow] = lambda: assessment_uow
     app.dependency_overrides[get_submission_uow] = lambda: submission_uow
+    app.dependency_overrides[get_grading_uow] = lambda: grading_uow
     app.dependency_overrides[get_grading_queue] = lambda: grading_queue
     app.dependency_overrides[get_password_hasher] = lambda: password_hasher
     app.dependency_overrides[get_token_service] = lambda: token_service
