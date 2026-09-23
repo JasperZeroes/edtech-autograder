@@ -1,6 +1,6 @@
 # EdTech Autograder Frontend
 
-Commit 22 provides the authentication/application shell for the backend demo.
+The frontend is a lightweight React/Vite interface over the existing FastAPI backend.
 
 ## Requirements
 
@@ -23,27 +23,50 @@ The frontend runs at:
 http://localhost:5173
 ```
 
-By default it calls the FastAPI backend at:
+By default it calls:
 
 ```text
 http://localhost:8000
 ```
 
-Change `VITE_API_BASE_URL` in `frontend/.env` if the backend runs elsewhere.
+Change `VITE_API_BASE_URL` in `frontend/.env` if needed.
 
-## Commit 22 scope
+## Current features
 
-Implemented:
+### Authentication
 
-- landing page
-- student/instructor registration
+- register as student or instructor
 - shared login
-- access/refresh token storage
-- `/auth/me` session restoration
-- role-protected routing
-- instructor/student dashboard shells
+- persisted authenticated session through `/auth/me`
+- role-protected routes
 - logout
-- responsive UI
-- FastAPI CORS support for the frontend origin
 
-Assignment authoring, student submission, and results are added in the next commits.
+### Instructor
+
+- view own assignments
+- create a draft assignment
+- configure grading weights
+- configure visible/hidden IO tests
+- optionally configure unit tests
+- optionally configure static-analysis rules
+- configure runtime/memory limits
+- publish immediately or keep as draft
+- publish/unpublish existing assignments
+
+### Student
+
+- browse published assignments
+- view student-safe assignment details
+- view visible IO examples
+- view visible unit tests/static requirements when available
+- upload `.py` solutions
+- create multiple attempts
+- view submission history and queued/running/completed/failed state
+
+Result detail, instructor submission review, and AI suggestions are added in Commit 24.
+
+## Build check
+
+```bash
+npm run build
+```

@@ -11,10 +11,13 @@ export default function AppLayout() {
     navigate("/login", { replace: true });
   }
 
+  const dashboardPath =
+    user?.role === "instructor" ? "/instructor" : "/student";
+
   return (
     <div className="app-shell">
       <header className="topbar">
-        <NavLink to="/dashboard" className="brand">
+        <NavLink to={dashboardPath} className="brand">
           <span className="brand-mark">EA</span>
           <span>
             <strong>EdTech Autograder</strong>
@@ -23,13 +26,28 @@ export default function AppLayout() {
         </NavLink>
 
         <nav className="topbar-actions" aria-label="Main navigation">
+          <NavLink className="nav-link" to={dashboardPath}>
+            Dashboard
+          </NavLink>
+
+          {user?.role === "instructor" ? (
+            <NavLink className="nav-link" to="/instructor/assignments/new">
+              Create
+            </NavLink>
+          ) : null}
+
           <span className="user-pill">
             <span className="user-pill-name">
               {user?.full_name || user?.email}
             </span>
             <span className="role-badge">{user?.role}</span>
           </span>
-          <button className="button button-ghost" type="button" onClick={handleLogout}>
+
+          <button
+            className="button button-ghost"
+            type="button"
+            onClick={handleLogout}
+          >
             Log out
           </button>
         </nav>
