@@ -79,10 +79,21 @@ def test_tampered_token_is_rejected(
     user: IdentityUser,
 ) -> None:
     token = service.issue_pair(user).access_token
-    tampered = token[:-1] + ("a" if token[-1] != "a" else "b")
+
+    header, payload, signature = token.split(".")
+
+    tampered_signature = (
+        ("a" if signature[0] != "a" else "b")
+        + signature[1:]
+    )
+
+    tampered = f"{header}.{payload}.{tampered_signature}"
 
     with pytest.raises(InvalidTokenError):
-        service.decode(tampered, expected_type=TokenType.ACCESS)
+        service.decode(
+            tampered,
+            expected_type=TokenType.ACCESS,
+        )
 
 
 def test_token_signed_with_different_secret_is_rejected(
