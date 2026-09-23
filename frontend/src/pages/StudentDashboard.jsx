@@ -61,8 +61,8 @@ export default function StudentDashboard() {
           <div className="eyebrow">Student workspace</div>
           <h1>Welcome, {user?.full_name || "Student"}</h1>
           <p className="muted">
-            Browse published assignments, upload Python solutions, and track
-            each attempt.
+            Browse published assignments, upload Python solutions, and inspect
+            grading results.
           </p>
         </div>
 
@@ -133,6 +133,15 @@ export default function StudentDashboard() {
                       >
                         Open assignment
                       </Link>
+
+                      {latest ? (
+                        <Link
+                          className="button button-secondary"
+                          to={`/student/submissions/${latest.id}/result`}
+                        >
+                          View latest
+                        </Link>
+                      ) : null}
                     </div>
                   </article>
                 );
@@ -144,7 +153,7 @@ export default function StudentDashboard() {
             <div>
               <h2>My submissions</h2>
               <p className="muted">
-                Every upload creates an independent attempt.
+                Open any attempt to see its live grading state or completed result.
               </p>
             </div>
           </div>
@@ -163,6 +172,7 @@ export default function StudentDashboard() {
                     <th>Assignment</th>
                     <th>Attempt</th>
                     <th>Status</th>
+                    <th />
                   </tr>
                 </thead>
                 <tbody>
@@ -174,6 +184,14 @@ export default function StudentDashboard() {
                       <td>
                         <StatusBadge status={submission.status} />
                       </td>
+                      <td className="table-action">
+                        <Link
+                          className="text-link"
+                          to={`/student/submissions/${submission.id}/result`}
+                        >
+                          View
+                        </Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -182,11 +200,6 @@ export default function StudentDashboard() {
           )}
         </>
       )}
-
-      <div className="demo-note">
-        <strong>Next:</strong> Commit 24 makes completed attempts clickable and
-        shows the full result/AI-feedback experience.
-      </div>
     </section>
   );
 }

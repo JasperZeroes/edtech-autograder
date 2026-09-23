@@ -70,8 +70,8 @@ export default function InstructorDashboard() {
           <div className="eyebrow">Instructor workspace</div>
           <h1>Welcome, {user?.full_name || "Instructor"}</h1>
           <p className="muted">
-            Create assessments, publish them for students, and manage the
-            grading workflow.
+            Create assessments, publish them for students, and review grading
+            evidence.
           </p>
         </div>
 
@@ -144,6 +144,13 @@ export default function InstructorDashboard() {
               </div>
 
               <div className="card-actions">
+                <Link
+                  className="button button-primary"
+                  to={`/instructor/assignments/${assignment.id}/submissions`}
+                >
+                  Review submissions
+                </Link>
+
                 <button
                   className={
                     assignment.status === "published"
@@ -165,11 +172,6 @@ export default function InstructorDashboard() {
           ))}
         </div>
       )}
-
-      <div className="demo-note">
-        <strong>Next:</strong> Commit 24 adds instructor submission review and
-        full result inspection.
-      </div>
     </section>
   );
 }

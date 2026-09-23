@@ -1,0 +1,384 @@
+
+.result-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 6px 0 8px;
+}
+
+.result-hero h1 {
+  margin: 8px 0 5px;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: -0.04em;
+}
+
+.result-hero p {
+  margin: 0;
+}
+
+.score-panel {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 20px;
+  border: 1px solid #dce5ef;
+  border-radius: 20px;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0 12px 38px rgba(30, 53, 86, 0.06);
+}
+
+.final-score {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 190px;
+  border-radius: 16px;
+  padding: 20px;
+  background: #172033;
+  color: #ffffff;
+  text-align: center;
+}
+
+.final-score span {
+  color: #bac5d5;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.final-score strong {
+  margin: 8px 0 0;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.final-score small {
+  margin-top: 7px;
+  color: #aebbd0;
+}
+
+.score-components {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.score-component {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  border: 1px solid #e1e7ef;
+  border-radius: 15px;
+  padding: 18px;
+  background: #fbfcfe;
+}
+
+.score-component-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.score-component-header strong {
+  color: #2b3a4f;
+  font-size: 0.88rem;
+}
+
+.score-component-header span {
+  color: #8693a5;
+  font-size: 0.7rem;
+  font-weight: 750;
+}
+
+.score-component-value {
+  color: #1d2d43;
+  font-size: 1.65rem;
+  font-weight: 850;
+}
+
+.score-component small {
+  color: #748195;
+  line-height: 1.45;
+}
+
+.score-progress {
+  overflow: hidden;
+  height: 7px;
+  border-radius: 999px;
+  background: #e5eaf1;
+}
+
+.score-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #4059c7;
+}
+
+.pending-result-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pending-result-card h2,
+.failure-card h2 {
+  margin-bottom: 4px;
+}
+
+.failure-card {
+  border-color: #fecaca;
+  background: #fffafa;
+}
+
+.outcome-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.outcome-card {
+  padding: 17px;
+  border: 1px solid #e1e7ef;
+  border-radius: 14px;
+  background: #fbfcfe;
+}
+
+.outcome-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.outcome-heading > div {
+  display: grid;
+  gap: 5px;
+}
+
+.outcome-heading strong {
+  color: #223147;
+}
+
+.outcome-component {
+  color: #6f7c8f;
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.outcome-label-row {
+  display: flex !important;
+  grid-template-columns: none !important;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px !important;
+}
+
+.hidden-chip,
+.visible-chip {
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: 0.65rem;
+  font-weight: 850;
+}
+
+.hidden-chip {
+  background: #fff7dd;
+  color: #986300;
+}
+
+.visible-chip {
+  background: #eaf7ef;
+  color: #247044;
+}
+
+.outcome-points {
+  margin-top: 12px;
+  color: #44546a;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.outcome-detail {
+  margin: 10px 0 0;
+  color: #69778a;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.diagnostic-block {
+  overflow-x: auto;
+  margin: 12px 0 0;
+  border-radius: 9px;
+  padding: 12px;
+  background: #172033;
+  color: #e7edf6;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.hidden-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.hidden-summary-grid > div {
+  display: grid;
+  gap: 4px;
+  border-radius: 13px;
+  padding: 16px;
+  background: #f7f9fc;
+}
+
+.hidden-summary-grid span {
+  color: #748195;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.hidden-summary-grid strong {
+  color: #1d2d43;
+  font-size: 1.6rem;
+}
+
+.privacy-note {
+  margin: 16px 0 0;
+  border-left: 3px solid #9babe0;
+  padding-left: 12px;
+  color: #69778a;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.instructor-note {
+  border-left-color: #d4a72c;
+}
+
+.feedback-list {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feedback-list li {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.22fr) 1fr;
+  gap: 12px;
+  border-radius: 11px;
+  padding: 12px 14px;
+  background: #f7f9fc;
+  color: #48576c;
+  line-height: 1.5;
+}
+
+.feedback-list li span {
+  color: #6c7a8e;
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.ai-feedback-card {
+  display: grid;
+  gap: 18px;
+}
+
+.ai-feedback-card > div:first-child p {
+  margin-bottom: 0;
+}
+
+.ai-feedback-card .button {
+  width: fit-content;
+}
+
+.ai-suggestion {
+  border: 1px solid #d9e2ff;
+  border-radius: 14px;
+  padding: 18px;
+  background: #f5f7ff;
+}
+
+.ai-suggestion p {
+  margin: 0;
+  color: #34445a;
+  line-height: 1.7;
+}
+
+.ai-suggestion small {
+  display: block;
+  margin-top: 14px;
+  color: #6f7c8f;
+}
+
+.table-action {
+  text-align: right !important;
+}
+
+.text-link {
+  color: #2942b5;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.status-passed {
+  background: #e8f8ee;
+  color: #1f7543;
+}
+
+.status-timeout {
+  background: #fff7dd;
+  color: #936100;
+}
+
+.status-error {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+@media (max-width: 900px) {
+  .score-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .final-score {
+    min-height: 150px;
+  }
+
+  .score-components {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .result-hero,
+  .pending-result-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hidden-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

@@ -231,9 +231,15 @@ export default function StudentAssignment() {
               </div>
               <StatusBadge status={submission.status} />
               <p>
-                Your solution is durable and queued for grading. Commit 24 adds
-                the live result screen.
+                Your solution is durable and queued for grading. Open the live
+                result page to follow its status.
               </p>
+              <Link
+                className="button button-secondary"
+                to={`/student/submissions/${submission.id}/result`}
+              >
+                View result
+              </Link>
             </div>
           ) : null}
 

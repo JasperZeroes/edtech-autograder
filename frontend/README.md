@@ -1,14 +1,12 @@
 # EdTech Autograder Frontend
 
-The frontend is a lightweight React/Vite interface over the existing FastAPI backend.
+A lightweight React/Vite demo interface over the FastAPI autograder backend.
 
 ## Requirements
 
 Vite 8 requires Node.js 20.19+ or 22.12+.
 
 ## Run locally
-
-From the repository root:
 
 ```bash
 cd frontend
@@ -17,55 +15,70 @@ npm install
 npm run dev
 ```
 
-The frontend runs at:
+Frontend:
 
 ```text
 http://localhost:5173
 ```
 
-By default it calls:
+Backend default:
 
 ```text
 http://localhost:8000
 ```
 
-Change `VITE_API_BASE_URL` in `frontend/.env` if needed.
-
-## Current features
+## Implemented demo flow
 
 ### Authentication
 
-- register as student or instructor
-- shared login
-- persisted authenticated session through `/auth/me`
+- student/instructor registration
+- login
+- session restoration through `/auth/me`
 - role-protected routes
 - logout
 
 ### Instructor
 
-- view own assignments
-- create a draft assignment
-- configure grading weights
-- configure visible/hidden IO tests
-- optionally configure unit tests
-- optionally configure static-analysis rules
-- configure runtime/memory limits
-- publish immediately or keep as draft
-- publish/unpublish existing assignments
+- list own assignments
+- create/configure assignments
+- grading weights
+- visible/hidden IO tests
+- optional unit/static grading
+- execution limits
+- publish/unpublish
+- list all submissions for an owned assignment
+- inspect queued/running/failed/completed submission state
+- view complete deterministic grading evidence
+- view hidden evaluation evidence as the assignment owner
 
 ### Student
 
 - browse published assignments
-- view student-safe assignment details
-- view visible IO examples
-- view visible unit tests/static requirements when available
-- upload `.py` solutions
+- open student-safe assignment details
+- upload `.py` files
 - create multiple attempts
-- view submission history and queued/running/completed/failed state
+- view submission history
+- open any attempt
+- automatically poll queued/running attempts
+- view weighted final score
+- view IO/unit/static component breakdown
+- view visible evaluation evidence
+- view aggregate hidden-test results without secret data
+- request optional AI improvement suggestions after grading completes
 
-Result detail, instructor submission review, and AI suggestions are added in Commit 24.
+## External-service behavior
 
-## Build check
+The frontend does not require Judge0 to render submission states.
+
+If a submission is still queued/running, the result page polls every 3 seconds.
+
+If grading infrastructure fails, the UI shows the backend failure reason separately from a normal wrong-answer/timeout result.
+
+When Judge0 is correctly configured, completed results automatically render without frontend changes.
+
+AI feedback is also optional. If no AI provider is configured, the authoritative deterministic result remains fully usable and only the AI-suggestion request fails.
+
+## Build
 
 ```bash
 npm run build
