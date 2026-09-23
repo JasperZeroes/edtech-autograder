@@ -12,6 +12,7 @@ from .auth import (
     UserResponse,
 )
 from .results import (
+    AIFeedbackSuggestionResponse,
     InstructorSubmissionResultResponse,
     InstructorSubmissionSummaryResponse,
     StudentSubmissionResultResponse,
@@ -22,6 +23,7 @@ from .submission import (
 )
 
 __all__ = [
+    "AIFeedbackSuggestionResponse",
     "AccessTokenResponse",
     "ConfigureAssignmentRequest",
     "CreateAssignmentRequest",

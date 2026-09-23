@@ -19,6 +19,8 @@ from app.application.identity import (
 )
 from app.config import get_auth_settings, get_database_settings
 from app.domain.identity import UserRole
+from app.infrastructure.grading import OpenAIFeedbackGateway
+from app.infrastructure.grading.settings import get_grading_settings
 from app.infrastructure.persistence import (
     SqlAlchemyAssessmentUnitOfWork,
     SqlAlchemyGradingUnitOfWork,
@@ -77,6 +79,17 @@ def get_grading_uow(
 @lru_cache
 def get_grading_queue() -> CeleryGradingQueue:
     return CeleryGradingQueue(celery_app)
+
+
+@lru_cache
+def get_ai_feedback_gateway() -> OpenAIFeedbackGateway:
+    settings = get_grading_settings()
+    return OpenAIFeedbackGateway(
+        api_key=settings.openai_api_key,
+        model=settings.openai_feedback_model,
+        base_url=settings.openai_base_url,
+        timeout_seconds=settings.openai_request_timeout_seconds,
+    )
 
 
 @lru_cache

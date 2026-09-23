@@ -12,6 +12,11 @@ class GradingSettings(BaseSettings):
     judge0_python_language_id: int = Field(default=71, gt=0)
     judge0_request_timeout_seconds: float = Field(default=20.0, gt=0)
 
+    openai_api_key: str | None = None
+    openai_feedback_model: str = "gpt-5.6-luna"
+    openai_base_url: str = "https://api.openai.com/v1"
+    openai_request_timeout_seconds: float = Field(default=20.0, gt=0)
+
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",

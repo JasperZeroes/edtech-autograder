@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from typing import Protocol
+from typing import Protocol, TYPE_CHECKING
 
 from app.domain.assessment import AssignmentRepository, StaticAnalysisRules
 from app.domain.grading import ExecutionOutcome, GradingResultRepository
 from app.domain.submission import SubmissionRepository
 
 from .requests import CodeExecutionRequest, SourceAnalysisReport
+
+if TYPE_CHECKING:
+    from .ai_feedback import AIFeedbackRequest
 
 
 class CodeExecutionGateway(Protocol):
@@ -25,6 +28,13 @@ class SourceAnalyzer(Protocol):
         source_code: str,
         rules: StaticAnalysisRules,
     ) -> SourceAnalysisReport:
+        ...
+
+
+class AIFeedbackGateway(Protocol):
+    """Generates non-authoritative learning suggestions from safe facts."""
+
+    def generate(self, request: "AIFeedbackRequest") -> str:
         ...
 
 

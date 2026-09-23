@@ -3,6 +3,7 @@ from __future__ import annotations
 from pydantic import BaseModel
 
 from app.application.grading import (
+    AIFeedbackSuggestion,
     InstructorSubmissionResultView,
     InstructorSubmissionSummaryView,
     StudentSubmissionResultView,
@@ -230,4 +231,21 @@ class InstructorSubmissionResultResponse(BaseModel):
             status=view.status,
             failure_reason=view.failure_reason,
             result=payload,
+        )
+
+
+class AIFeedbackSuggestionResponse(BaseModel):
+    submission_id: int
+    suggestion: str
+    advisory: str
+
+    @classmethod
+    def from_view(
+        cls,
+        view: AIFeedbackSuggestion,
+    ) -> "AIFeedbackSuggestionResponse":
+        return cls(
+            submission_id=view.submission_id,
+            suggestion=view.suggestion,
+            advisory=view.advisory,
         )

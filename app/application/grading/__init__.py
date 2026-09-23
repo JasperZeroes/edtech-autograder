@@ -1,4 +1,8 @@
 from .errors import (
+    AIFeedbackError,
+    AIFeedbackNotReadyError,
+    AIFeedbackProtocolError,
+    AIFeedbackUnavailableError,
     CodeExecutionError,
     CodeExecutionProtocolError,
     CodeExecutionUnavailableError,
@@ -10,9 +14,15 @@ from .errors import (
     SubmissionAlreadyRunningError,
 )
 from .ports import (
+    AIFeedbackGateway,
     CodeExecutionGateway,
     GradingUnitOfWork,
     SourceAnalyzer,
+)
+from .ai_feedback import (
+    AIFeedbackRequest,
+    AIFeedbackSuggestion,
+    GenerateStudentAISuggestion,
 )
 from .queries import (
     GetInstructorSubmissionResult,
@@ -36,12 +46,20 @@ from .result_views import (
 from .workflow import GradeSubmission, GradeSubmissionResult
 
 __all__ = [
+    "AIFeedbackError",
+    "AIFeedbackGateway",
+    "AIFeedbackNotReadyError",
+    "AIFeedbackProtocolError",
+    "AIFeedbackRequest",
+    "AIFeedbackSuggestion",
+    "AIFeedbackUnavailableError",
     "CodeExecutionError",
     "CodeExecutionGateway",
     "CodeExecutionProtocolError",
     "CodeExecutionRequest",
     "CodeExecutionUnavailableError",
     "FeedbackFactView",
+    "GenerateStudentAISuggestion",
     "GetInstructorSubmissionResult",
     "GetStudentSubmissionResult",
     "GradeSubmission",

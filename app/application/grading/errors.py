@@ -32,3 +32,19 @@ class SubmissionAlreadyRunningError(GradingWorkflowError):
 
 class ResultAccessError(GradingWorkflowError):
     """Raised when a caller attempts to view a result they do not own."""
+
+
+class AIFeedbackError(RuntimeError):
+    """Base class for optional AI-feedback failures."""
+
+
+class AIFeedbackUnavailableError(AIFeedbackError):
+    """Raised when the configured AI provider cannot be reached or used."""
+
+
+class AIFeedbackProtocolError(AIFeedbackError):
+    """Raised when the AI provider returns an invalid response."""
+
+
+class AIFeedbackNotReadyError(AIFeedbackError):
+    """Raised when a submission is not yet eligible for AI suggestions."""
