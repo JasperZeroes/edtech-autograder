@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.infrastructure.persistence.repositories import (
     SqlAlchemyAssignmentRepository,
+    SqlAlchemyGradingResultRepository,
     SqlAlchemySubmissionRepository,
     SqlAlchemyUserRepository,
 )
@@ -44,6 +45,22 @@ class SqlAlchemySubmissionUnitOfWork:
         self._session = session
         self.assignments = SqlAlchemyAssignmentRepository(session)
         self.submissions = SqlAlchemySubmissionRepository(session)
+
+    def commit(self) -> None:
+        self._session.commit()
+
+    def rollback(self) -> None:
+        self._session.rollback()
+
+
+class SqlAlchemyGradingUnitOfWork:
+    """SQLAlchemy transaction boundary for asynchronous grading."""
+
+    def __init__(self, session: Session) -> None:
+        self._session = session
+        self.assignments = SqlAlchemyAssignmentRepository(session)
+        self.submissions = SqlAlchemySubmissionRepository(session)
+        self.grading_results = SqlAlchemyGradingResultRepository(session)
 
     def commit(self) -> None:
         self._session.commit()

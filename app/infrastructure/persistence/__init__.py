@@ -2,6 +2,7 @@ from .base import Base
 from .database import create_database_engine, create_session_factory
 from .unit_of_work import (
     SqlAlchemyAssessmentUnitOfWork,
+    SqlAlchemyGradingUnitOfWork,
     SqlAlchemyIdentityUnitOfWork,
     SqlAlchemySubmissionUnitOfWork,
 )
@@ -9,6 +10,7 @@ from .unit_of_work import (
 __all__ = [
     "Base",
     "SqlAlchemyAssessmentUnitOfWork",
+    "SqlAlchemyGradingUnitOfWork",
     "SqlAlchemyIdentityUnitOfWork",
     "SqlAlchemySubmissionUnitOfWork",
     "create_database_engine",

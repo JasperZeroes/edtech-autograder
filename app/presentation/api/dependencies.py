@@ -26,7 +26,7 @@ from app.infrastructure.persistence import (
     create_database_engine,
     create_session_factory,
 )
-from app.infrastructure.queue import InMemoryGradingQueue
+from app.infrastructure.queue import CeleryGradingQueue, celery_app
 from app.infrastructure.security import Argon2PasswordHasher, JwtTokenService
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
@@ -68,8 +68,8 @@ def get_submission_uow(
 
 
 @lru_cache
-def get_grading_queue() -> InMemoryGradingQueue:
-    return InMemoryGradingQueue()
+def get_grading_queue() -> CeleryGradingQueue:
+    return CeleryGradingQueue(celery_app)
 
 
 @lru_cache

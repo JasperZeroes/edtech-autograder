@@ -13,6 +13,10 @@ from .outcomes import (
     ExecutionOutcome,
     GradingComponent,
 )
+from .repository import (
+    GradingResultRepository,
+    StoredGradingResult,
+)
 from .result import (
     GradingResult,
     HiddenEvaluationSummary,
@@ -35,9 +39,11 @@ __all__ = [
     "GradingCalculationError",
     "GradingComponent",
     "GradingResult",
+    "GradingResultRepository",
     "GradingValidationError",
     "HiddenEvaluationSummary",
     "ScoreBreakdown",
+    "StoredGradingResult",
     "StudentGradingView",
     "VisibleEvaluationOutcome",
     "WeightedComponentScore",
