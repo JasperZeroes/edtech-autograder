@@ -90,9 +90,9 @@ The domain layer does not depend on FastAPI, SQLAlchemy, Celery, Redis, Judge0, 
 
 Editable diagrams are included in [`docs/diagrams`](docs/diagrams):
 
-- `system-architecture.drawio` / `system-architecture.svg`
-- `ddd-context-map.drawio` / `ddd-context-map.svg`
-- `data-model-erd.drawio` / `data-model-erd.svg`
+- `system-architecture.drawio.svg`
+- `ddd-context-map.drawio.svg`
+- `data-model-erd.drawio.svg`
 
 ## Domain-driven design
 
@@ -420,9 +420,3 @@ Notable limitations:
 - operational concerns such as distributed tracing, rate limiting, autoscaling, CI/CD, and production secret management are outside the assignment scope
 
 These choices preserve the important engineering concerns for the exercise: correctness, explicit boundaries, deterministic grading, security, testability, and readable architecture.
-
-## Submission documentation
-
-A concise interviewer-oriented walkthrough is available in:
-
-[`docs/final-submission.md`](docs/final-submission.md)
