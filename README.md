@@ -15,13 +15,18 @@ This project addresses those concerns with explicit domain boundaries and determ
 For the original problem statement and functional analysis, see:
 
 - [`docs/problem-statement.md`](docs/problem-statement.md)
-- [`docs/functional-requirements.md`](docs/functional-requirements.md)
+- [`docs/functional-analysis.md`](docs/functional-analysis.md)
 
-For the architecture and domain model, see:
+For the architecture decisions and domain design, see:
 
-- [`docs/architecture.md`](docs/architecture.md)
+- [`docs/architecture-decisions.md`](docs/architecture.md)
 - [`docs/domain-design.md`](docs/domain-design.md)
-- [`docs/architecture-decisions.md`](docs/architecture-decisions.md)
+
+For the system architecture, domain, and data models, see:
+
+- [`docs/diagrams/system-architecture.drawio.svg`](docs/diagrams/system-architecture.drawio.svg)
+- [`docs/diagrams/ddd-context-map.drawio.svg`](docs/diagrams/ddd-context-map.drawio.svg)
+- [`docs/diagrams/data-model-erd.drawio.svg`](docs/diagrams/data-model-erd.drawio.svg)
 
 ## Core capabilities
 
